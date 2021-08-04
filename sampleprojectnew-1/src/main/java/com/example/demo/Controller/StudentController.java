@@ -39,10 +39,10 @@ public class StudentController {
 	public void save() {
 		JSONParser parser = new JSONParser();
 		File folder = new File("C:\\Users\\nishu\\student.json");
-		//Student student=new Student();
+		//Student student=new Student();		
 		try {
 			JSONArray obj = (JSONArray) parser.parse(new FileReader(folder));
-			System.out.println(obj);
+			//System.out.println(obj);
 			Iterator itr2 = obj.iterator();
 			List<Student> students=new ArrayList<>();
 			
@@ -154,6 +154,53 @@ public class StudentController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+	}
+	
+	
+	@GetMapping("/saveStudent")
+	public void savestudent() {
+		Student stud=new Student();
+		stud.setId(1);
+		stud.setName("akhil");
+		Marks marks=new Marks();
+		marks.setId(0);
+		marks.setScore(100.00);
+		marks.setStudent(stud);
+		marks.setTest("001");
+		stud.setMarks(marks);
+		List<Subject> subjects=new ArrayList<>();
+		Subject sub=new Subject();
+		sub.setId("001");
+		sub.setSub_name("physics");
+		sub.setStudent(stud);
+		subjects.add(sub);
+		
+		Subject sub1=new Subject();
+		sub1.setId("002");
+		sub1.setSub_name("maths");
+		sub1.setStudent(stud);
+		subjects.add(sub1);
+		
+	
+		
+		
+		List<Teacher> teachers=new ArrayList<>();
+		Teacher t=new Teacher();
+		t.setStudent(stud);
+		t.setT_id(001);
+		t.setT_name("m");
+		teachers.add(t);
+		
+		Teacher t2=new Teacher();
+		t.setStudent(stud);
+		t.setT_id(0022);
+		t.setT_name("nm");
+		teachers.add(t);
+		
+		
+		stud.setTeachers(teachers);
+		this.studentRepository.save(stud);
 		
 	}
 
